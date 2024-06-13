@@ -7,12 +7,15 @@ import { Provider } from "react-redux";
 import mainStore from "./Store/MainStore.jsx";
 import { ChakraProvider } from "@chakra-ui/react";
 import LoginPage from "./Components/LoginPage.jsx";
-
+import HomePage from "./Components/HomePage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    children: [{ path: "/login", element: <LoginPage /> }],
+    children: [
+      { path: "/", element: <HomePage /> },
+      { path: "/login", element: <LoginPage /> },
+    ],
   },
 ]);
 
