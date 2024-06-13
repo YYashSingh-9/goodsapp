@@ -61,8 +61,19 @@ const LoginPage = () => {
         <GridItem h={500} borderRadius={10} className={classes.formContainer}>
           <LoginForm />
         </GridItem>{" "}
-        <GridItem bg={"orange.400"} h={100}>
-          sss
+        <GridItem
+          bg={"RGBA(0, 0, 0, 0.36)"}
+          h={100}
+          borderRadius={10}
+          fontFamily={"poppins"}
+          fontWeight={500}
+          pt={5}
+          color={"white"}
+        >
+          <VStack>
+            <h4>Username : Admin@Yash</h4>
+            <h3>Password : Yash9000 </h3>
+          </VStack>
         </GridItem>
       </Grid>
     </>
