@@ -1,0 +1,19 @@
+.formContainer {
+  border: 0.1rem solid rgb(211, 211, 211);
+}
+.form_Login {
+  width: 70%;
+  margin: auto;
+  margin-top: 2rem;
+  font-family: "poppins";
+  text-align: center;
+}
+.formContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 5rem;
+}
+.form_Login input {
+  width: 50%;
+}
