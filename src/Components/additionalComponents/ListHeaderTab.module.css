@@ -1,4 +1,10 @@
 .listHeader {
   border: 0.1rem solid rgb(211, 211, 211);
-  border-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.grid_item {
+  border-right: 0.1rem solid rgb(211, 211, 211);
+  padding-top: 0.5rem;
 }

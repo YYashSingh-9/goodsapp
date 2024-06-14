@@ -1,0 +1,9 @@
+.namePart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.listM {
+  border-bottom: 0.1rem solid rgb(211, 211, 211);
+  padding-top: 0.5rem;
+}

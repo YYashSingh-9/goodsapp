@@ -1,7 +1,7 @@
-import { Button, Grid, GridItem, HStack } from "@chakra-ui/react";
+import { Box, Button, Grid, GridItem, HStack } from "@chakra-ui/react";
 import classes from "./HomePage.module.css";
 import ListHeaderTab from "./additionalComponents/ListHeaderTab";
-
+import ListItem from "./additionalComponents/ListItem";
 const HomePage = () => {
   return (
     <>
@@ -62,8 +62,15 @@ const HomePage = () => {
             </Button>
           </HStack>
         </GridItem>
-        <GridItem h={"auto"} className={classes.listHeader}>
+        <GridItem h={"auto"}>
           <ListHeaderTab />
+          <Box className={classes.listTab}>
+            <ListItem />
+            <ListItem />
+            <ListItem />
+            <ListItem />
+            <ListItem />
+          </Box>
         </GridItem>
       </Grid>
     </>
