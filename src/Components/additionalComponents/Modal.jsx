@@ -10,6 +10,7 @@ import {
   VStack,
   FormLabel,
   Input,
+  Box,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,23 +19,23 @@ import { actions } from "../../Store/sliceOne";
 import classes from "./Modal.module.css";
 import Select from "react-select";
 
-const options = [
-  { value: "New Product", label: "New Product" },
-  { value: "New Product 2", label: "New Product 2" },
-];
+const options = [{ value: "New Product", label: "New Product" }];
 
 const ModalForm = () => {
   const multiselectVal = useSelector((state) => state.sliceOne.multiselectVal);
-  const products = useSelector((state) => state.sliceOne.productSchema);
+  const productSelected = useSelector(
+    (state) => state.sliceOne.productSelected
+  );
   const dispatch = useDispatch();
 
   const onChangeHandler = (selectedValue) => {
     dispatch(actions.multiSelectToggle(selectedValue));
   };
-  console.log(multiselectVal);
+  console.log(productSelected);
   return (
     <>
       <Form className={classes.formm}>
+        <FormLabel>Select Product</FormLabel>
         <Select
           options={options}
           value={multiselectVal}
@@ -42,6 +43,12 @@ const ModalForm = () => {
           isMulti={true}
           className={classes.select}
         />
+        <Box className={classes.semiformBox}>
+          <Box className={classes.heading}>
+            {" "}
+            <h4></h4>
+          </Box>
+        </Box>
       </Form>
     </>
   );
