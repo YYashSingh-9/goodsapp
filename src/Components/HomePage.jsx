@@ -2,7 +2,11 @@ import { Box, Button, Grid, GridItem, HStack } from "@chakra-ui/react";
 import classes from "./HomePage.module.css";
 import ListHeaderTab from "./additionalComponents/ListHeaderTab";
 import ListItem from "./additionalComponents/ListItem";
+import { useColorMode } from "@chakra-ui/react";
+
 const HomePage = () => {
+  const { toggleColorMode } = useColorMode();
+
   return (
     <>
       <Grid
@@ -51,6 +55,7 @@ const HomePage = () => {
             >
               Completed sale Order
             </Button>
+
             <Button
               variant="solid"
               color={"white"}
@@ -59,6 +64,15 @@ const HomePage = () => {
               _hover={{ bg: "#2F855A" }}
             >
               + Sale Order
+            </Button>
+            <Button
+              variant="solid"
+              color={"white"}
+              bg={"#48BB78"}
+              _hover={{ bg: "#2F855A" }}
+              onClick={toggleColorMode}
+            >
+              Dark Mode
             </Button>
           </HStack>
         </GridItem>
