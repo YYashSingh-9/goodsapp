@@ -50,7 +50,7 @@ const HomePage = () => {
             <Button
               variant="solid"
               color={"white"}
-              bg={"#48BB78"}
+              bg={"#2F855A"}
               _hover={{ bg: "#2F855A" }}
             >
               Active sale Order
