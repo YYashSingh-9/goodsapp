@@ -1,12 +1,20 @@
-import { Box, Button, Grid, GridItem, HStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Grid,
+  GridItem,
+  HStack,
+  useDisclosure,
+} from "@chakra-ui/react";
 import classes from "./HomePage.module.css";
 import ListHeaderTab from "./additionalComponents/ListHeaderTab";
 import ListItem from "./additionalComponents/ListItem";
 import { useColorMode } from "@chakra-ui/react";
+import Modal from "./additionalComponents/Modal";
 
 const HomePage = () => {
   const { toggleColorMode } = useColorMode();
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       <Grid
@@ -62,6 +70,7 @@ const HomePage = () => {
               bg={"#48BB78"}
               ml={"auto"}
               _hover={{ bg: "#2F855A" }}
+              onClick={onOpen}
             >
               + Sale Order
             </Button>
@@ -76,16 +85,14 @@ const HomePage = () => {
             </Button>
           </HStack>
         </GridItem>
+
         <GridItem h={"auto"}>
           <ListHeaderTab />
           <Box className={classes.listTab}>
             <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
           </Box>
         </GridItem>
+        <Modal isOpen={isOpen} onClose={onClose} />
       </Grid>
     </>
   );

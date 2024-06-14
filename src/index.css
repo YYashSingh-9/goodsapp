@@ -2,7 +2,7 @@
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
+  padding: 0% 15%;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
 
@@ -16,7 +16,7 @@ body {
   background-color: #ffffff;
   font-family: "poppins";
   margin: 0;
-  padding: 0% 15%;
+
   min-height: 100vh;
   scroll-behavior: smooth;
 }
