@@ -24,6 +24,9 @@ const options = [{ value: "New Product", label: "New Product" }];
 const ModalForm = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const prodSelected = useSelector((state) => state.sliceOne.productSelected);
+  const activeSaleOrder = useSelector(
+    (state) => state.sliceOne.activeSaleOrders
+  );
   const dispatch = useDispatch();
   const Nameref = useRef();
   const dateref = useRef();
@@ -39,14 +42,19 @@ const ModalForm = () => {
     e.preventDefault();
     let pri = sellingRateref.current.value * totalItemref.current.value;
 
+    //collecting data to send to store
     const data = {
       name: Nameref.current.value,
       date: dateref.current.value,
       sellingRate: sellingRateref.current.value,
-      totalPrice: totalItemref.current.value,
+      totalItem: totalItemref.current.value,
       price: pri,
+      sku_id: prodSelected[0].sku[0].id,
     };
+
+    dispatch(actions.addSaleOrder(data));
     console.log(data);
+    console.log(activeSaleOrder);
   };
 
   return (
@@ -65,7 +73,7 @@ const ModalForm = () => {
             <FormLabel>Customer Name</FormLabel>
             <Input
               name="name"
-              variant={"outlined"}
+              variant={"filled"}
               placeholder="customer name"
               type="text"
               w={150}
@@ -77,7 +85,7 @@ const ModalForm = () => {
             <Input
               ref={dateref}
               name="date"
-              variant={"outlined"}
+              variant={"filled"}
               placeholder="date"
               type="Date"
               w={150}
@@ -104,7 +112,7 @@ const ModalForm = () => {
                 <Input
                   ref={sellingRateref}
                   name="selling rate"
-                  variant={"outlined"}
+                  variant={"filled"}
                   placeholder="Selling rate"
                   type="number"
                   w={150}
@@ -115,7 +123,7 @@ const ModalForm = () => {
                 <Input
                   ref={totalItemref}
                   name="total item"
-                  variant={"outlined"}
+                  variant={"filled"}
                   placeholder="Total Item"
                   type="number"
                   w={150}

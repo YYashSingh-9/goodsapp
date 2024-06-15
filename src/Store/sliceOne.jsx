@@ -75,6 +75,7 @@ const initialState_ = {
   },
   multiselectVal: [],
   productSelected: "",
+  activeSaleOrders: [],
 };
 
 const sliceOne = createSlice({
@@ -95,6 +96,28 @@ const sliceOne = createSlice({
       } else {
         state.productSelected = [];
       }
+    },
+    addSaleOrder(state, action) {
+      const data = action.payload;
+      let item = {
+        sku_id: data.sku_id,
+        price: data.sellingRate,
+        quantity: data.totalItem,
+      };
+
+      let arrObj = {
+        customer_id: 11908,
+        items: [],
+        paid: false,
+        invoice_no: "Invoice - 1212121",
+        invoice_date: data.date,
+      };
+      arrObj.items.push(item);
+      console.log(arrObj, item, data);
+
+      let arr2 = [...state.activeSaleOrders];
+      arr2.push(arrObj);
+      state.activeSaleOrders = arr2;
     },
   },
 });
