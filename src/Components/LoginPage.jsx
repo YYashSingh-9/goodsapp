@@ -7,17 +7,42 @@ import {
   Stack,
   VStack,
 } from "@chakra-ui/react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import classes from "./LoginPage.module.css";
-import { Form } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { actions } from "../Store/sliceOne";
 
 const LoginForm = (e) => {
   const userNameRef = useRef();
   const passwordRef = useRef();
   const dispatch = useDispatch();
+  const Navigate = useNavigate();
+  const loginState = useSelector((state) => state.sliceOne.loginState);
+
+  let stats;
+  const onSubmit = (e) => {
+    const dataToSend = {
+      username: userNameRef.current.value,
+      password: passwordRef.current.value,
+    };
+    e.preventDefault();
+    dispatch(actions.loginFunction(dataToSend));
+    loginState === true
+      ? Navigate("/")
+      : (stats = <p>Check and re enter credentials</p>);
+    console.log(loginState);
+  };
+  const { isPending, error, data, mutate } = useMutation({
+    queryKey: ["authentication"],
+    mutationFn: (e) => onSubmit(e),
+  });
+
+  if (isPending) return (stats = <p>Loading...</p>);
+
+  if (error) return (stats = <p> An error has occurred:</p> + error.message);
 
   return (
     <>
@@ -37,9 +62,11 @@ const LoginForm = (e) => {
             color={"white"}
             w={200}
             _hover={{ bg: "#2F855A" }}
+            onClick={onSubmit}
           >
             Login
           </Button>
+          {stats}
         </VStack>
       </Form>
     </>
