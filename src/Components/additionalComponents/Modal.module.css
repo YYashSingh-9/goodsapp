@@ -22,13 +22,15 @@
   justify-content: space-between;
   align-items: center;
 }
-.middlepart {
+.middlepart,
+.startPart {
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 0.8rem;
   margin-top: 0.5rem;
 }
+
 .mbody::-webkit-scrollbar {
   width: 0;
   scroll-behavior: smooth;

@@ -81,19 +81,6 @@ const sliceOne = createSlice({
   name: "sliceOne",
   initialState: initialState_,
   reducers: {
-    multiSelectToggle(state, action) {
-      const val = action.payload;
-      const arry = [];
-      state.multiselectVal = arry.push(...val);
-      state.multiselectVal = arry;
-      state.productSelected = state.productSchema.filter((el, i) => {
-        console.log(el.name, i, state.multiselectVal[i].value);
-        if (state.multiselectVal.value) {
-          return el.name === state.multiselectVal[i].value;
-        }
-        return "";
-      });
-    },
     selectProduct(state, action) {
       const selectedOpts = action.payload;
 

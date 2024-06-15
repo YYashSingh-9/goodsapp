@@ -25,11 +25,29 @@ const ModalForm = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const prodSelected = useSelector((state) => state.sliceOne.productSelected);
   const dispatch = useDispatch();
+  const Nameref = useRef();
+  const dateref = useRef();
+  const sellingRateref = useRef();
+  const totalItemref = useRef();
+
   const handleChange = (selectedOption) => {
     setSelectedOptions(selectedOption);
     dispatch(actions.selectProduct(selectedOption));
   };
-  console.log(prodSelected);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    let pri = sellingRateref.current.value * totalItemref.current.value;
+
+    const data = {
+      name: Nameref.current.value,
+      date: dateref.current.value,
+      sellingRate: sellingRateref.current.value,
+      totalPrice: totalItemref.current.value,
+      price: pri,
+    };
+    console.log(data);
+  };
 
   return (
     <>
@@ -46,61 +64,80 @@ const ModalForm = () => {
           <Box>
             <FormLabel>Customer Name</FormLabel>
             <Input
+              name="name"
               variant={"outlined"}
-              placeholder="Selling rate"
+              placeholder="customer name"
               type="text"
               w={150}
+              ref={Nameref}
             />
           </Box>
           <Box>
             <FormLabel>Enter Date</FormLabel>
             <Input
+              ref={dateref}
+              name="date"
               variant={"outlined"}
-              placeholder="Selling rate"
+              placeholder="date"
               type="Date"
               w={150}
             />
           </Box>
         </Box>
 
-        {prodSelected.length >= 1 &&
-          prodSelected[0].sku.map((el, i) => {
-            return (
-              <Box className={classes.semiformBox} key={i}>
-                <Box className={classes.heading}>
-                  {" "}
-                  <h4>
-                    SKU {el.id} {`( ${el.unit} )`}
-                  </h4>
-                  <span>
-                    {" "}
-                    <h4>Rate: ${el.selling_price}</h4>
-                  </span>
-                </Box>
-                <Box className={classes.middlepart}>
-                  <Box>
-                    <FormLabel>Selling Rate</FormLabel>
-                    <Input
-                      variant={"outlined"}
-                      placeholder="Selling rate"
-                      type="number"
-                      w={150}
-                    />
-                  </Box>
-                  <Box>
-                    <FormLabel>Total Items</FormLabel>
-                    <Input
-                      variant={"outlined"}
-                      placeholder="Total Item"
-                      type="number"
-                      w={150}
-                    />
-                  </Box>
-                </Box>
-                <span>{el.quantity_in_inventory} remaining</span>
+        {prodSelected.length >= 1 && (
+          <Box className={classes.semiformBox}>
+            <Box className={classes.heading}>
+              {" "}
+              <h4>
+                SKU {prodSelected[0].sku[0].id}{" "}
+                {`( ${prodSelected[0].sku[0].unit} )`}
+              </h4>
+              <span>
+                {" "}
+                <h4>Rate: ${prodSelected[0].sku[0].selling_price}</h4>
+              </span>
+            </Box>
+            <Box className={classes.middlepart}>
+              <Box>
+                <FormLabel>Selling Rate</FormLabel>
+                <Input
+                  ref={sellingRateref}
+                  name="selling rate"
+                  variant={"outlined"}
+                  placeholder="Selling rate"
+                  type="number"
+                  w={150}
+                />
               </Box>
-            );
-          })}
+              <Box>
+                <FormLabel>Total Items</FormLabel>
+                <Input
+                  ref={totalItemref}
+                  name="total item"
+                  variant={"outlined"}
+                  placeholder="Total Item"
+                  type="number"
+                  w={150}
+                />
+              </Box>
+            </Box>
+            <span>
+              {prodSelected[0].sku[0].quantity_in_inventory} remaining
+            </span>
+          </Box>
+        )}
+
+        <Button
+          colorScheme="blue"
+          mr={3}
+          type="submit"
+          ml={130}
+          mt={5}
+          onClick={onSubmit}
+        >
+          Add Sale Order
+        </Button>
       </Form>
     </>
   );
@@ -123,7 +160,6 @@ const Modal_ = (props) => {
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant="ghost">Secondary Action</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
