@@ -11,10 +11,14 @@ import ListHeaderTab from "./additionalComponents/ListHeaderTab";
 import ListItem from "./additionalComponents/ListItem";
 import { useColorMode } from "@chakra-ui/react";
 import Modal from "./additionalComponents/Modal";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
   const { toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const customer = useSelector((state) => state.sliceOne.customerSchema);
+  const activeOrders = useSelector((state) => state.sliceOne.activeSaleOrders);
+  let customerName = customer.customer_profile.name;
   return (
     <>
       <Grid
@@ -89,7 +93,16 @@ const HomePage = () => {
         <GridItem h={"auto"}>
           <ListHeaderTab />
           <Box className={classes.listTab}>
-            <ListItem />
+            {!activeOrders.length > 0 && <p>No Active Sale Orders</p>}
+            {activeOrders.map((el, i) => (
+              <ListItem
+                sn={i}
+                key={i}
+                cName={el.name}
+                price={el.price}
+                date={el.invoice_date}
+              />
+            ))}
           </Box>
         </GridItem>
         <Modal isOpen={isOpen} onClose={onClose} />

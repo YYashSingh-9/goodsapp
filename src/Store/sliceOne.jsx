@@ -106,11 +106,13 @@ const sliceOne = createSlice({
       };
 
       let arrObj = {
+        name: data.name,
         customer_id: 11908,
         items: [],
         paid: false,
         invoice_no: "Invoice - 1212121",
         invoice_date: data.date,
+        price: data.price,
       };
       arrObj.items.push(item);
       console.log(arrObj, item, data);

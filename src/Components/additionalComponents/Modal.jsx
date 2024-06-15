@@ -21,7 +21,7 @@ import Select from "react-select";
 
 const options = [{ value: "New Product", label: "New Product" }];
 
-const ModalForm = () => {
+const ModalForm = (props) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const prodSelected = useSelector((state) => state.sliceOne.productSelected);
   const activeSaleOrder = useSelector(
@@ -40,9 +40,10 @@ const ModalForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    //getting total price..
     let pri = sellingRateref.current.value * totalItemref.current.value;
 
-    //collecting data to send to store
+    //collecting data to send to store..
     const data = {
       name: Nameref.current.value,
       date: dateref.current.value,
@@ -53,6 +54,7 @@ const ModalForm = () => {
     };
 
     dispatch(actions.addSaleOrder(data));
+    props.onclose();
     console.log(data);
     console.log(activeSaleOrder);
   };
@@ -161,7 +163,7 @@ const Modal_ = (props) => {
           <ModalHeader>Modal Title</ModalHeader>
           <ModalCloseButton />
           <ModalBody height={"20rem"} className={classes.mbody}>
-            <ModalForm />
+            <ModalForm onclose={onClose} />
           </ModalBody>
 
           <ModalFooter>

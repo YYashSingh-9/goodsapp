@@ -2,7 +2,9 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import classes from "./ListItem.module.css";
 import { FaUserCircle } from "react-icons/fa";
 
-const ListItem = () => {
+const ListItem = (props) => {
+  const { sn, cName, price, date } = props;
+  console.log(date);
   return (
     <>
       <Grid
@@ -15,19 +17,19 @@ const ListItem = () => {
       >
         {" "}
         <GridItem h={10}>
-          <h3>1</h3>
+          <h3>{sn + 1}</h3>
         </GridItem>
         <GridItem h={10}>
           <span className={classes.namePart}>
             <FaUserCircle />
-            <h3 style={{ marginLeft: "1rem" }}>Customer Name</h3>
+            <h3 style={{ marginLeft: "1rem" }}>{cName}</h3>
           </span>
         </GridItem>
         <GridItem h={10}>
-          <h3>$22.2</h3>
+          <h3>${price}</h3>
         </GridItem>
         <GridItem h={10}>
-          <h3>23/3/24</h3>
+          <h3>{date}</h3>
         </GridItem>
         <GridItem h={10}>
           <h3>...</h3>
