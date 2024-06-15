@@ -25,7 +25,6 @@ const ModalForm = (props) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const prodSelected = useSelector((state) => state.sliceOne.productSelected);
   const currentOrder = useSelector((state) => state.sliceOne.currentOpenOrder);
-  console.log(currentOrder);
   const dispatch = useDispatch();
   const Nameref = useRef();
   const dateref = useRef();
@@ -51,7 +50,6 @@ const ModalForm = (props) => {
       price: pri,
       sku_id: prodSelected[0].sku[0].id,
     };
-    console.log(data);
     dispatch(actions.editSaleOrder({ data: data, name: data.name }));
     props.onclose();
   };
@@ -77,6 +75,7 @@ const ModalForm = (props) => {
               placeholder="customer name"
               type="text"
               w={150}
+              minLength={4}
               ref={Nameref}
               defaultValue={currentOrder.name}
             />

@@ -7,18 +7,30 @@ import {
   Stack,
   VStack,
 } from "@chakra-ui/react";
+import { useQuery } from "@tanstack/react-query";
+
 import classes from "./LoginPage.module.css";
 import { Form } from "react-router-dom";
+import { useRef } from "react";
+import { useDispatch } from "react-redux";
 
 const LoginForm = (e) => {
+  const userNameRef = useRef();
+  const passwordRef = useRef();
+  const dispatch = useDispatch();
+
   return (
     <>
       <Form method="POST" className={classes.form_Login}>
         <VStack>
           <FormLabel>Username/Email </FormLabel>
-          <Input placeholder="Enter your email or username" variant="filled" />
+          <Input
+            placeholder="Enter your email or username"
+            variant="filled"
+            ref={userNameRef}
+          />
           <FormLabel>Password</FormLabel>
-          <Input type="password" variant="filled" />
+          <Input type="password" variant="filled" ref={passwordRef} />
           <Button
             type="submit"
             bg={"#48BB78"}

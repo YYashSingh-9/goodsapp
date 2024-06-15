@@ -119,6 +119,8 @@ const initialState_ = {
   multiselectVal: [],
   productSelected: "",
   activeSaleOrders: [],
+  loginState: false,
+  logged: "",
 };
 
 const sliceOne = createSlice({
@@ -185,7 +187,6 @@ const sliceOne = createSlice({
       );
       const arr1 = state.activeSaleOrders;
       const item = arr1[itemIndex];
-      console.log(item);
       const editedItem = {
         ...item,
         name: editedData.name,
@@ -194,6 +195,20 @@ const sliceOne = createSlice({
       };
 
       state.activeSaleOrders[itemIndex] = editedItem;
+    },
+    loginFunction(state, action) {
+      const obj = action.payload;
+
+      if (obj.username === "Admin@Yash" && obj.password === "Yash9000") {
+        state.loginState = true;
+        state.logged = true;
+        return Promise.resolve("logged in");
+      }
+      if (obj.username !== "Admin@Yash" && obj.password !== "Yash9000") {
+        state.loginState = false;
+        state.logged = false;
+        return Promise.reject("Incorrect credentials");
+      }
     },
   },
 });
