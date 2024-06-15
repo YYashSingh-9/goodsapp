@@ -88,8 +88,26 @@ const sliceOne = createSlice({
       state.multiselectVal = arry;
       state.productSelected = state.productSchema.filter((el, i) => {
         console.log(el.name, i, state.multiselectVal[i].value);
-        return el.name === state.multiselectVal[i].value;
+        if (state.multiselectVal.value) {
+          return el.name === state.multiselectVal[i].value;
+        }
+        return "";
       });
+    },
+    selectProduct(state, action) {
+      const selectedOpts = action.payload;
+
+      if (selectedOpts.length >= 1) {
+        state.productSelected = state.productSchema.filter((el, i) => {
+          if (selectedOpts[i].value) {
+            return el.name === selectedOpts[i].value;
+          } else {
+            return [];
+          }
+        });
+      } else {
+        state.productSelected = [];
+      }
     },
   },
 });
