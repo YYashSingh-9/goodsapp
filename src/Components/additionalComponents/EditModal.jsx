@@ -16,7 +16,7 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form } from "react-router-dom";
 import { actions } from "../../Store/sliceOne";
-import classes from "./Modal.module.css";
+import classes from "./EditModal.module.css";
 import Select from "react-select";
 
 const options = [{ value: "New Product", label: "New Product" }];
@@ -24,9 +24,8 @@ const options = [{ value: "New Product", label: "New Product" }];
 const ModalForm = (props) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const prodSelected = useSelector((state) => state.sliceOne.productSelected);
-  const activeSaleOrder = useSelector(
-    (state) => state.sliceOne.activeSaleOrders
-  );
+  const currentOrder = useSelector((state) => state.sliceOne.currentOpenOrder);
+  console.log(currentOrder);
   const dispatch = useDispatch();
   const Nameref = useRef();
   const dateref = useRef();
@@ -55,8 +54,6 @@ const ModalForm = (props) => {
 
     dispatch(actions.addSaleOrder(data));
     props.onclose();
-    console.log(data);
-    console.log(activeSaleOrder);
   };
 
   return (
@@ -69,6 +66,7 @@ const ModalForm = (props) => {
           onChange={handleChange}
           isMulti={true}
           className={classes.select}
+          defaultValue={options[0].value}
         />
         <Box className={classes.startPart}>
           <Box>
@@ -80,6 +78,7 @@ const ModalForm = (props) => {
               type="text"
               w={150}
               ref={Nameref}
+              defaultValue={currentOrder.name}
             />
           </Box>
           <Box>
@@ -91,6 +90,7 @@ const ModalForm = (props) => {
               placeholder="date"
               type="Date"
               w={150}
+              defaultValue={currentOrder.invoice_date}
             />
           </Box>
         </Box>
@@ -118,6 +118,7 @@ const ModalForm = (props) => {
                   placeholder="Selling rate"
                   type="number"
                   w={150}
+                  defaultValue={currentOrder.items[0].price}
                 />
               </Box>
               <Box>
@@ -129,6 +130,7 @@ const ModalForm = (props) => {
                   placeholder="Total Item"
                   type="number"
                   w={150}
+                  defaultValue={currentOrder.items[0].quantity}
                 />
               </Box>
             </Box>
@@ -146,14 +148,14 @@ const ModalForm = (props) => {
           mt={5}
           onClick={onSubmit}
         >
-          Add Sale Order
+          Edit Sale Order
         </Button>
       </Form>
     </>
   );
 };
 
-const Modal_ = (props) => {
+const EditModal_ = (props) => {
   const { isOpen, onClose } = props;
   return (
     <>
@@ -177,4 +179,4 @@ const Modal_ = (props) => {
   );
 };
 
-export default Modal_;
+export default EditModal_;

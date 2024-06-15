@@ -76,6 +76,21 @@ const initialState_ = {
   multiselectVal: [],
   productSelected: "",
   activeSaleOrders: [],
+  currentOpenOrder: {
+    customer_id: 0,
+    items: [
+      {
+        sku_id: 0,
+        price: 0,
+        quantity: 0,
+      },
+    ],
+    paid: false,
+    name: "",
+    price: 0,
+    invoice_no: "",
+    invoice_date: "",
+  },
 };
 
 const sliceOne = createSlice({
@@ -120,6 +135,35 @@ const sliceOne = createSlice({
       let arr2 = [...state.activeSaleOrders];
       arr2.push(arrObj);
       state.activeSaleOrders = arr2;
+    },
+    currentOrderSetter(state, action) {
+      const name = action.payload;
+      state.currentOpenOrder = state.activeSaleOrders.find(
+        (el) => el.name === name
+      );
+    },
+
+    editSaleOrder(state, action) {
+      const editedData = action.payload.data;
+      const customerName = action.payload.name;
+      let itemArr = {
+        sku_id: editedData.sku_id,
+        price: editedData.sellingRate,
+        quantity: editedData.totalItem,
+      };
+
+      const itemIndex = state.activeSaleOrders.findIndex(
+        (el) => el.name === customerName
+      );
+      const item = [...state.activeSaleOrders[itemIndex]];
+      const editedItem = {
+        ...item,
+        name: editedData.name,
+        items: itemArr,
+        price: editedData.price,
+      };
+
+      state.activeSaleOrders[itemIndex] = editedItem;
     },
   },
 });

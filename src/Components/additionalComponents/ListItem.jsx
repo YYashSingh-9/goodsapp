@@ -1,10 +1,18 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import classes from "./ListItem.module.css";
 import { FaUserCircle } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { actions } from "../../Store/sliceOne";
 
 const ListItem = (props) => {
-  const { sn, cName, price, date } = props;
-  console.log(date);
+  const { sn, cName, price, date, onopen } = props;
+  const dispatch = useDispatch();
+
+  const modalToggle = () => {
+    onopen();
+    dispatch(actions.currentOrderSetter(cName));
+  };
+
   return (
     <>
       <Grid
@@ -32,7 +40,9 @@ const ListItem = (props) => {
           <h3>{date}</h3>
         </GridItem>
         <GridItem h={10}>
-          <h3>...</h3>
+          <h3 onClick={modalToggle} style={{ cursor: "pointer" }}>
+            . . .
+          </h3>
         </GridItem>
       </Grid>
     </>

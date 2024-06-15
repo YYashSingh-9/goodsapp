@@ -1,0 +1,45 @@
+.formm {
+  width: 100%;
+}
+.mSelect {
+  height: 5rem;
+}
+.select {
+  width: 100%;
+}
+.mbody {
+  overflow-y: scroll;
+}
+.semiformBox {
+  border: 0.1rem solid rgb(211, 211, 211);
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+.heading {
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.middlepart,
+.startPart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.mbody::-webkit-scrollbar {
+  width: 0;
+  scroll-behavior: smooth;
+}
+.mbody::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.mbody::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background-color: none;
+}
