@@ -73,9 +73,6 @@ const initialState_ = {
       gst: "",
     },
   },
-  multiselectVal: [],
-  productSelected: "",
-  activeSaleOrders: [],
   currentOpenOrder: {
     customer_id: 0,
     items: [
@@ -91,6 +88,37 @@ const initialState_ = {
     invoice_no: "",
     invoice_date: "",
   },
+  completedSales: [
+    {
+      customer_id: 11908,
+      items: [
+        {
+          sku_id: 248,
+          price: 22,
+          quantity: 2,
+        },
+      ],
+      sku: [
+        {
+          id: 248,
+          selling_price: 54,
+          max_retail_price: 44,
+          amount: 33,
+          unit: "kg",
+          quantity_in_inventory: 0,
+          product: 209,
+        },
+      ],
+      paid: false,
+      name: "yash",
+      price: 44,
+      invoice_no: "Invoice - 1212121",
+      invoice_date: "2024-06-19",
+    },
+  ],
+  multiselectVal: [],
+  productSelected: "",
+  activeSaleOrders: [],
 };
 
 const sliceOne = createSlice({
@@ -155,11 +183,13 @@ const sliceOne = createSlice({
       const itemIndex = state.activeSaleOrders.findIndex(
         (el) => el.name === customerName
       );
-      const item = [...state.activeSaleOrders[itemIndex]];
+      const arr1 = state.activeSaleOrders;
+      const item = arr1[itemIndex];
+      console.log(item);
       const editedItem = {
         ...item,
         name: editedData.name,
-        items: itemArr,
+        items: [itemArr],
         price: editedData.price,
       };
 

@@ -1,3 +1,4 @@
+import classes from "./CompletedSaleOrder.module.css";
 import {
   Box,
   Button,
@@ -6,28 +7,19 @@ import {
   HStack,
   useDisclosure,
 } from "@chakra-ui/react";
-import classes from "./HomePage.module.css";
 import ListHeaderTab from "./additionalComponents/ListHeaderTab";
 import ListItem from "./additionalComponents/ListItem";
 import { useColorMode } from "@chakra-ui/react";
 import Modal from "./additionalComponents/Modal";
 import EditModal_ from "./additionalComponents/EditModal";
+import CompletedModal from "./additionalComponents/CompletedModal";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-const HomePage = () => {
+const CompletedSaleOrder = () => {
   const { toggleColorMode } = useColorMode();
-  const {
-    isOpen: isOrderOpen,
-    onOpen: orderOpen,
-    onClose: isOrderClose,
-  } = useDisclosure();
-  const {
-    isOpen: isEditerOpen,
-    onOpen: editerOpen,
-    onClose: editorClose,
-  } = useDisclosure();
-  const activeOrders = useSelector((state) => state.sliceOne.activeSaleOrders);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const completedOrders = useSelector((state) => state.sliceOne.completedSales);
 
   return (
     <>
@@ -67,62 +59,42 @@ const HomePage = () => {
               bg={"#2F855A"}
               _hover={{ bg: "#2F855A" }}
             >
-              Active sale Order
+              Completed sale Order
             </Button>
-            <NavLink to={"/completed-orders"}>
+            <NavLink to="/">
               <Button
                 variant="solid"
                 color={"white"}
                 bg={"#48BB78"}
+                ml={"auto"}
                 _hover={{ bg: "#2F855A" }}
               >
-                Completed sale Order
+                back
               </Button>
             </NavLink>
-
-            <Button
-              variant="solid"
-              color={"white"}
-              bg={"#48BB78"}
-              ml={"auto"}
-              _hover={{ bg: "#2F855A" }}
-              onClick={orderOpen}
-            >
-              + Sale Order
-            </Button>
-            <Button
-              variant="solid"
-              color={"white"}
-              bg={"#48BB78"}
-              _hover={{ bg: "#2F855A" }}
-              onClick={toggleColorMode}
-            >
-              Dark Mode
-            </Button>
           </HStack>
         </GridItem>
 
         <GridItem h={"auto"}>
           <ListHeaderTab />
           <Box className={classes.listTab}>
-            {!activeOrders.length > 0 && <p>No Active Sale Orders</p>}
-            {activeOrders.map((el, i) => (
+            {!completedOrders.length > 0 && <p>No Active Sale Orders</p>}
+            {completedOrders.map((el, i) => (
               <ListItem
                 sn={i}
                 key={i}
                 cName={el.name}
                 price={el.price}
                 date={el.invoice_date}
-                onopen={editerOpen}
+                onopen={onOpen}
               />
             ))}
           </Box>
         </GridItem>
-        <Modal isOpen={isOrderOpen} onClose={isOrderClose} />
-        <EditModal_ isOpen={isEditerOpen} onClose={editorClose} />
+        <CompletedModal isOpen={isOpen} onClose={onClose} />
       </Grid>
     </>
   );
 };
 
-export default HomePage;
+export default CompletedSaleOrder;

@@ -8,6 +8,7 @@ import mainStore from "./Store/MainStore.jsx";
 import { ChakraProvider } from "@chakra-ui/react";
 import LoginPage from "./Components/LoginPage.jsx";
 import HomePage from "./Components/HomePage.jsx";
+import CompletedSaleOrder from "./Components/CompletedSaleOrder.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <HomePage /> },
       { path: "/login", element: <LoginPage /> },
+      { path: "/completed-orders", element: <CompletedSaleOrder /> },
     ],
   },
 ]);
